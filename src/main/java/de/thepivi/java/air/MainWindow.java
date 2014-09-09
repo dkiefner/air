@@ -16,9 +16,11 @@ import java.util.Properties;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import org.imgscalr.Scalr;
 
@@ -62,6 +64,7 @@ public class MainWindow {
 	}
 
 	private JFrame frame;
+	private JButton btnStartProcess;
 
 	private JLabel lblSrc;
 
@@ -157,7 +160,7 @@ public class MainWindow {
 		gbc_btnChoose_1.gridy = 1;
 		frame.getContentPane().add(btnChooseDest, gbc_btnChoose_1);
 
-		JButton btnStartProcess = new JButton("Start Process");
+		btnStartProcess = new JButton("Start Process");
 		btnStartProcess.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
@@ -290,12 +293,15 @@ public class MainWindow {
 	}
 
 	private void startProcess(float xxxhdpi, float xxhdpi, float xhdpi, float hdpi, float mdpi) throws IOException {
+		// change button text
+		btnStartProcess.setText("Processing...");
+		
 		File outMdpi = new File(destFolder, "drawable-mdpi");
 		File outHdpi = new File(destFolder, "drawable-hdpi");
 		File outXHdpi = new File(destFolder, "drawable-xhdpi");
 		File outXXHdpi = new File(destFolder, "drawable-xxhdpi");
 		File outXXXHdpi = new File(destFolder, "drawable-xxxhdpi");
-
+		
 		if ( xxxhdpi > 0f ) {
 			createFolder(outXXXHdpi);
 		}
@@ -330,6 +336,10 @@ public class MainWindow {
 			resizeDrawable(src, maxWidth, maxHeight, xxhdpi, outFormat, outXXHdpi, file.getName());
 			resizeDrawable(src, maxWidth, maxHeight, xxxhdpi, outFormat, outXXXHdpi, file.getName());
 		}
+		
+		btnStartProcess.setText("Start Process");
+		
+		JOptionPane.showMessageDialog(frame, "Finished");
 	}
 
 }
