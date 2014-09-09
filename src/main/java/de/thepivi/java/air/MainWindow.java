@@ -189,9 +189,9 @@ public class MainWindow {
 		});
 		GridBagConstraints gbc_btnStartProcess = new GridBagConstraints();
 		gbc_btnStartProcess.gridwidth = 2;
-		gbc_btnStartProcess.insets = new Insets(0, 0, 0, 5);
+		gbc_btnStartProcess.insets = new Insets(0, 0, 5, 5);
 		gbc_btnStartProcess.gridx = 0;
-		gbc_btnStartProcess.gridy = 8;
+		gbc_btnStartProcess.gridy = 2;
 		frame.getContentPane().add(btnStartProcess, gbc_btnStartProcess);
 
 		fileChooser = new JFileChooser();
