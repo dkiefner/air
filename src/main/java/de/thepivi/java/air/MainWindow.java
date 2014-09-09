@@ -14,20 +14,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-import javafx.stage.PopupWindow.AnchorLocation;
-
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import org.imgscalr.Scalr;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
 
 // TODO zielgröße xxhdpi eingeben und diese basis nutzen, wenn source pics zu groß
 // TODO nodpi ignorieren
