@@ -14,6 +14,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+import javafx.stage.PopupWindow.AnchorLocation;
+
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -88,7 +90,7 @@ public class MainWindow {
 	private void initialize() {
 		// MainFrame
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 600, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -103,6 +105,8 @@ public class MainWindow {
 		JLabel lblSourceResFolder = new JLabel("Source Res Folder:");
 		GridBagConstraints gbc_lblSourceResFolder = new GridBagConstraints();
 		gbc_lblSourceResFolder.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSourceResFolder.anchor = GridBagConstraints.WEST;
+		gbc_lblSourceResFolder.weightx = 1.0;
 		gbc_lblSourceResFolder.gridx = 0;
 		gbc_lblSourceResFolder.gridy = 0;
 		frame.getContentPane().add(lblSourceResFolder, gbc_lblSourceResFolder);
@@ -110,6 +114,8 @@ public class MainWindow {
 		lblSrc = new JLabel("None");
 		GridBagConstraints gbc_lblNone = new GridBagConstraints();
 		gbc_lblNone.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNone.anchor = GridBagConstraints.WEST;
+		gbc_lblNone.weightx = 1.0;
 		gbc_lblNone.gridx = 1;
 		gbc_lblNone.gridy = 0;
 		frame.getContentPane().add(lblSrc, gbc_lblNone);
@@ -135,6 +141,8 @@ public class MainWindow {
 		JLabel lblOutResFolder = new JLabel("Out Res Folder:");
 		GridBagConstraints gbc_lblOutResFolder = new GridBagConstraints();
 		gbc_lblOutResFolder.insets = new Insets(0, 0, 5, 5);
+		gbc_lblOutResFolder.anchor = GridBagConstraints.WEST;
+		gbc_lblOutResFolder.weightx = 1.0;
 		gbc_lblOutResFolder.gridx = 0;
 		gbc_lblOutResFolder.gridy = 1;
 		frame.getContentPane().add(lblOutResFolder, gbc_lblOutResFolder);
@@ -142,6 +150,8 @@ public class MainWindow {
 		lblDest = new JLabel("None");
 		GridBagConstraints gbc_lblNone_1 = new GridBagConstraints();
 		gbc_lblNone_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNone_1.anchor = GridBagConstraints.WEST;
+		gbc_lblNone_1.weightx = 1.0;
 		gbc_lblNone_1.gridx = 1;
 		gbc_lblNone_1.gridy = 1;
 		frame.getContentPane().add(lblDest, gbc_lblNone_1);
@@ -155,7 +165,7 @@ public class MainWindow {
 			}
 		});
 		GridBagConstraints gbc_btnChoose_1 = new GridBagConstraints();
-		gbc_btnChoose_1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnChoose_1.insets = new Insets(0, 0, 5, 5);		
 		gbc_btnChoose_1.gridx = 2;
 		gbc_btnChoose_1.gridy = 1;
 		frame.getContentPane().add(btnChooseDest, gbc_btnChoose_1);
@@ -193,7 +203,9 @@ public class MainWindow {
 		GridBagConstraints gbc_btnStartProcess = new GridBagConstraints();
 		gbc_btnStartProcess.gridwidth = 2;
 		gbc_btnStartProcess.insets = new Insets(0, 0, 5, 5);
+		gbc_btnStartProcess.anchor = GridBagConstraints.WEST;
 		gbc_btnStartProcess.gridx = 0;
+		gbc_btnStartProcess.weightx = 1.0;
 		gbc_btnStartProcess.gridy = 2;
 		frame.getContentPane().add(btnStartProcess, gbc_btnStartProcess);
 
