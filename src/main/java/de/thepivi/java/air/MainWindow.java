@@ -25,6 +25,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import org.imgscalr.Scalr;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
 
 // TODO zielgröße xxhdpi eingeben und diese basis nutzen, wenn source pics zu groß
 // TODO nodpi ignorieren
@@ -76,6 +79,9 @@ public class MainWindow {
 	private File srcFolder;
 
 	private File destFolder;
+	private JLabel lblLog;
+	private JScrollPane scrollPane;
+	private JTextArea textArea;
 
 	public MainWindow() {
 		initialize();
@@ -98,7 +104,7 @@ public class MainWindow {
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0,
 				Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
 				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 
@@ -106,7 +112,6 @@ public class MainWindow {
 		GridBagConstraints gbc_lblSourceResFolder = new GridBagConstraints();
 		gbc_lblSourceResFolder.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSourceResFolder.anchor = GridBagConstraints.WEST;
-		gbc_lblSourceResFolder.weightx = 1.0;
 		gbc_lblSourceResFolder.gridx = 0;
 		gbc_lblSourceResFolder.gridy = 0;
 		frame.getContentPane().add(lblSourceResFolder, gbc_lblSourceResFolder);
@@ -142,7 +147,6 @@ public class MainWindow {
 		GridBagConstraints gbc_lblOutResFolder = new GridBagConstraints();
 		gbc_lblOutResFolder.insets = new Insets(0, 0, 5, 5);
 		gbc_lblOutResFolder.anchor = GridBagConstraints.WEST;
-		gbc_lblOutResFolder.weightx = 1.0;
 		gbc_lblOutResFolder.gridx = 0;
 		gbc_lblOutResFolder.gridy = 1;
 		frame.getContentPane().add(lblOutResFolder, gbc_lblOutResFolder);
@@ -165,7 +169,7 @@ public class MainWindow {
 			}
 		});
 		GridBagConstraints gbc_btnChoose_1 = new GridBagConstraints();
-		gbc_btnChoose_1.insets = new Insets(0, 0, 5, 5);		
+		gbc_btnChoose_1.insets = new Insets(0, 0, 5, 5);
 		gbc_btnChoose_1.gridx = 2;
 		gbc_btnChoose_1.gridy = 1;
 		frame.getContentPane().add(btnChooseDest, gbc_btnChoose_1);
@@ -208,6 +212,29 @@ public class MainWindow {
 		gbc_btnStartProcess.weightx = 1.0;
 		gbc_btnStartProcess.gridy = 2;
 		frame.getContentPane().add(btnStartProcess, gbc_btnStartProcess);
+
+		lblLog = new JLabel("Log:");
+		GridBagConstraints gbc_lblLog = new GridBagConstraints();
+		gbc_lblLog.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLog.anchor = GridBagConstraints.WEST;
+		gbc_lblLog.weightx = 1.0;
+		gbc_lblLog.gridx = 0;
+		gbc_lblLog.gridy = 3;
+		frame.getContentPane().add(lblLog, gbc_lblLog);
+		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 5;
+		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 4;
+		frame.getContentPane().add(scrollPane, gbc_scrollPane);
+		
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		scrollPane.setViewportView(textArea);
 
 		fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -307,13 +334,14 @@ public class MainWindow {
 	private void startProcess(float xxxhdpi, float xxhdpi, float xhdpi, float hdpi, float mdpi) throws IOException {
 		// change button text
 		btnStartProcess.setText("Processing...");
-		
+		textArea.setText("");
+
 		File outMdpi = new File(destFolder, "drawable-mdpi");
 		File outHdpi = new File(destFolder, "drawable-hdpi");
 		File outXHdpi = new File(destFolder, "drawable-xhdpi");
 		File outXXHdpi = new File(destFolder, "drawable-xxhdpi");
 		File outXXXHdpi = new File(destFolder, "drawable-xxxhdpi");
-		
+
 		if ( xxxhdpi > 0f ) {
 			createFolder(outXXXHdpi);
 		}
@@ -333,9 +361,11 @@ public class MainWindow {
 		String fileName;
 		BufferedImage src;
 		System.out.println(String.format("start processing %d file(s)", srcFolder.listFiles().length));
+		textArea.append(String.format("start processing %d file(s)...\n", srcFolder.listFiles().length));
 		for ( File file : srcFolder.listFiles() ) {
 			fileName = file.getName();
 			System.out.println("processing: " + fileName);
+			textArea.append("\nprocessing: " + fileName);
 			String outFormat = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length());
 			src = ImageIO.read(file);
 
@@ -348,7 +378,8 @@ public class MainWindow {
 			resizeDrawable(src, maxWidth, maxHeight, xxhdpi, outFormat, outXXHdpi, file.getName());
 			resizeDrawable(src, maxWidth, maxHeight, xxxhdpi, outFormat, outXXXHdpi, file.getName());
 		}
-		
+
+		textArea.append("\n\nfinished processing.");
 		btnStartProcess.setText("Start Process");
 		
 		JOptionPane.showMessageDialog(frame, "Finished");
