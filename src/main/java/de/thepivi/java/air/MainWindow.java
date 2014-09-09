@@ -229,7 +229,7 @@ public class MainWindow {
 				lblDest.setText(dest);
 			}
 		} else {
-			System.out.println("Not cache available");
+			System.out.println("No cache available");
 		}
 	}
 
