@@ -31,17 +31,6 @@ import org.imgscalr.Scalr;
 // TODO ignore ninepatch
 public class MainWindow {
 
-	private static class Cache {
-
-		public static class Keys {
-
-			private static final String SRC = "src";
-			private static final String DEST = "dest";
-		}
-
-		private static final String NAME = "air_cache";
-	}
-
 	private static void createFolder(File... folder) {
 		for ( File f : folder ) {
 			if ( !f.exists() ) {
