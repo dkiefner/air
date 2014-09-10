@@ -29,6 +29,7 @@ import org.imgscalr.Scalr;
 // TODO nodpi ignorieren
 // TODO sonstige folder?
 // TODO ignore ninepatch
+// TODO console and gui version?
 public class MainWindow {
 
 	private static void createFolder(File... folder) {
